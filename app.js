@@ -23,7 +23,7 @@ function translate (message) {
         username: "142be989-9887-4e53-ab20-fa9e7fc354fe",
         version: 'v2'
     });
-
+    console.log(1);
     var fromLanguage = "Target:";
     var req = message;
     var hasTarget = false;
@@ -40,6 +40,7 @@ function translate (message) {
             tar = matchesTarget[0];
             tar = matchesTarget[0].slice(7, matchesTarget[0].length);
             // console.log(tar); // for debugging
+            console.log(2);
         }
     } catch (err) { // null list 
         // var twiml = new twilio.TwimlResponse();
@@ -64,6 +65,7 @@ function translate (message) {
             }
         } catch (err) { // null list
             // Use Watson to Identify language
+            console.log(3);
             var req = req.replace(reg1, "");
             var twiml = new twilio.TwimlResponse();
             language_translation.identify({ text: req },
@@ -110,6 +112,7 @@ function translate (message) {
                 });
         }
         if (hasSource) {
+            console.log(4);
             // strip message  source inputs
             var req = req.replace(reg1, "");
             // console.log("req" + req);  // for debugging

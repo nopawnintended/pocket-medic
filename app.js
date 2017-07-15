@@ -42,13 +42,15 @@ function translate (message) {
             // console.log(tar); // for debugging
         }
     } catch (err) { // null list 
-        var twiml = new twilio.TwimlResponse();
-        twiml.message(function () {
-            // Watson uses ISO 639-1 expect arabic and egyptian 639-3            
-            this.body("Include target to translate to 'Target:{langCode=en,es,fr,ara}'");
-        });
-        response.type('text/xml');
-        response.send(twiml.toString());
+        // var twiml = new twilio.TwimlResponse();
+        // twiml.message(function () {
+        //     // Watson uses ISO 639-1 expect arabic and egyptian 639-3            
+        //     this.body("Include target to translate to 'Target:{langCode=en,es,fr,ara}'");
+        // });
+        // response.type('text/xml');
+        // response.send(twiml.toString());
+        console.error('Target not found');
+        throw new Error(err);
     }
     if (hasTarget) {
         var matchesSource = req.match(reg2);
@@ -67,7 +69,7 @@ function translate (message) {
             language_translation.identify({ text: req },
                 function (err, identifiedLanguages) {
                     if (err)
-                        console.log(err)
+                        console.log(err);
                     else {
                         var identifiedStringfy = JSON.stringify(identifiedLanguages);
                         // console.log(identifiedStringfy);  // for debugging selected language                      
@@ -100,7 +102,7 @@ function translate (message) {
                                 // // Render an XML response
                                 // response.type('text/xml');
                                 // response.send(twiml.toString());
-                                
+                                console.log('THIS IS TRANS FINAL1', transFinal)
                                 return transFinal;
                             }
                         });
@@ -113,7 +115,7 @@ function translate (message) {
             // console.log("req" + req);  // for debugging
             req = req.replace(reg2, "");
             // console.log("striped: "+req); // for debugging       
-            var twiml = new twilio.TwimlResponse();
+            // var twiml = new twilio.TwimlResponse();
             // console.log("src: "+src+" tar: "+tar); //for debugging
             // Use Watson to translate language
             language_translation.translate({
@@ -137,7 +139,7 @@ function translate (message) {
                     // // Render an XML response
                     // response.type('text/xml');
                     // response.send(twiml.toString());
-                    console.log('THIS IS TRANS FINAL', transFinal)
+                    console.log('THIS IS TRANS FINAL2', transFinal);
                     return transFinal;
                 }
             });

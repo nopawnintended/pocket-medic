@@ -154,7 +154,7 @@ var contexts = [];
 app.post('/smssent', function (req, res) {
 
 console.log("We're in the post!")
-
+console.log("THIS IS REQ BODY", req.body.Body)
  var message = translate(req.body.Body);
   var number = req.body.From;
   var twilioNumber = req.body.To;

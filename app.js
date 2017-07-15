@@ -68,7 +68,6 @@ function translate (message) {
             // Use Watson to Identify language
             console.log(3);
             var req = req.replace(reg1, "");
-            var twiml = new twilio.TwimlResponse();
             language_translation.identify({ text: req },
                 function (err, identifiedLanguages) {
                     if (err) {

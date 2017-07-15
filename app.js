@@ -207,6 +207,13 @@ app.post('/smssent', function (req, res) {
             version_date: ConversationV1.VERSION_DATE_2016_09_20
         });
 
+        console.log({
+            username: process.env.CONVERSATION_USERNAME,
+            password: process.env.CONVERSATION_PASSWORD,
+            path: { workspace_id: '7e200353-7bd2-4ad6-9929-0c682211edad' },
+            version_date: ConversationV1.VERSION_DATE_2016_09_20
+        })
+
         console.log(JSON.stringify(context));
         console.log(contexts.length);
         conversation.message({

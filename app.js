@@ -16,7 +16,7 @@ var watson = require('watson-developer-cloud');
 function translate (message) {
     // create a TwiML response object. This object helps us generate an XML
     // string that we will ultimately return as the result of this HTTP request
-    console.log("Posting Message")
+    console.log("Translating Message")
     var language_translation = watson.language_translator({
         url: "https://gateway.watsonplatform.net/language-translator/api",
         password: "NY5jpP3ouTqm",
@@ -152,9 +152,9 @@ var contexts = [];
 
 app.post('/smssent', function (req, res) {
 
+console.log("We're in the post!")
 
-
- var message = req.body.Body;
+ var message = translate(req.body.Body);
   var number = req.body.From;
   var twilioNumber = req.body.To;
 

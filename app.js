@@ -1,7 +1,7 @@
 // // require dependencies for the application
-// var twilio = require('twilio');
 // var express = require('express');
 // var bodyParser = require('body-parser');
+var twilio = require('twilio');
 var express = require('express');
 var ConversationV1 = require('watson-developer-cloud/conversation/v1');
 var bodyParser = require('body-parser');

@@ -70,9 +70,13 @@ function translate (message) {
             var twiml = new twilio.TwimlResponse();
             language_translation.identify({ text: req },
                 function (err, identifiedLanguages) {
-                    if (err)
+                    if (err) {
+                        console.log(4);
                         console.log(err);
+                    }
+                        
                     else {
+                        console.log(5);
                         var identifiedStringfy = JSON.stringify(identifiedLanguages);
                         // console.log(identifiedStringfy);  // for debugging selected language                      
                         var identifiedSplit = identifiedStringfy.split(",");
@@ -85,11 +89,14 @@ function translate (message) {
                             source: identifiedFinal,
                             target: tar
                         }, function (err, translation) {
-                            if (err)
+                            if (err) {
+                                console.log(6);
                                 console.log(err)
+                            }
+                                
                             else {
                                 /* HERE IS WHERE WE WILL PUT THE MEDICAL API LOGIC */
-
+                                console.log(7);
                                 //Get translation out of json object
                                 var tansStringfy = JSON.stringify(translation);
                                 console.log(tansStringfy);
@@ -112,7 +119,6 @@ function translate (message) {
                 });
         }
         if (hasSource) {
-            console.log(4);
             // strip message  source inputs
             var req = req.replace(reg1, "");
             // console.log("req" + req);  // for debugging

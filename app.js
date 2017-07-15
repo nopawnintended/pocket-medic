@@ -162,7 +162,7 @@ app.post('/smssent', function (req, res) {
 
 console.log('Within post')
 
- var message = translate(req.body.Body);
+ var message = req.body.Body;
   var number = req.body.From;
   var twilioNumber = req.body.To;
 

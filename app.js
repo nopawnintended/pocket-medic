@@ -135,6 +135,7 @@ function translate (message) {
                     // // Render an XML response
                     // response.type('text/xml');
                     // response.send(twiml.toString());
+                    console.log('THIS IS TRANS FINAL', transFinal)
                     return transFinal;
                 }
             });

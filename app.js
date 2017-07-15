@@ -90,6 +90,8 @@ function translate (message) {
                             source: identifiedFinal,
                             target: tar
                         }, function (err, translation) {
+                            console.log('F');
+                            console.log(err, translation);
                             if (err) {
                                 console.log(6);
                                 console.log(err)

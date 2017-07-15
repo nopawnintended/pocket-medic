@@ -94,12 +94,14 @@ function translate (message) {
                                 var transFinal = transDoubleSplit[2].slice(1, transDoubleSplit[2].length - 3);
                                 console.log(transFinal)
                                 // prepare the TwiML response 
-                                twiml.message(function () {
-                                    this.body(transFinal);
-                                });
-                                // Render an XML response
-                                response.type('text/xml');
-                                response.send(twiml.toString());
+                                // twiml.message(function () {
+                                //     this.body(transFinal);
+                                // });
+                                // // Render an XML response
+                                // response.type('text/xml');
+                                // response.send(twiml.toString());
+                                
+                                return transFinal;
                             }
                         });
                     }

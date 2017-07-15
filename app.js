@@ -2,6 +2,9 @@
 // var twilio = require('twilio');
 // var express = require('express');
 // var bodyParser = require('body-parser');
+var express = require('express');
+var ConversationV1 = require('watson-developer-cloud/conversation/v1');
+var bodyParser = require('body-parser');
 var watson = require('watson-developer-cloud');
 
 // // Create a simple Express web app that will parse incoming POST bodies
@@ -139,117 +142,7 @@ function translate (message) {
     }
 };
 
-// // Start the web application, and serve on local port 3000
-// app.listen(process.env.PORT || 3000, function () {
-//     console.log('express-handlebars example server listening on: 3000');
-// });
 
-
-// //
-
-// var express = require('express');
-// var ConversationV1 = require('watson-developer-cloud/conversation/v1');
-// var bodyParser = require('body-parser');
-// // var client = require('twilio');
-
-// var app = express();
-// app.use(bodyParser.urlencoded({ extended: true }));
-
-// var contexts = [];
-
-// console.log('Above post')
-// app.post('/smssent', function (req, res) {
-
-// console.log('Within post')
-
-//  var message = req.body.Body;
-//   var number = req.body.From;
-//   var twilioNumber = req.body.To;
-
-//  console.log('In', message, number, twilioNumber);
-
-//  var context = null;
-//   var index = 0;
-//   var contextIndex = 0;
-//   contexts.forEach(function(value) {
-//     console.log(value.from);
-//     if (value.from == number) {
-//       context = value.context;
-//       contextIndex = index;
-//     }
-//     index = index + 1;
-//   });
-
-//  console.log('Recieved message from ' + number + ' saying \'' + message  + '\'');
-//   console.log(process.env.CONVERSATION_USERNAME, process.env.CONVERSATION_PASSWORD);
-
-//  var conversation = new ConversationV1({
-//     username: process.env.CONVERSATION_USERNAME,
-//     password: process.env.CONVERSATION_PASSWORD,
-//     path: { workspace_id: '7e200353-7bd2-4ad6-9929-0c682211edad' },
-//     version_date: ConversationV1.VERSION_DATE_2016_09_20
-//   });
-
-//  console.log(JSON.stringify(context));
-//   console.log(contexts.length);
-//   conversation.message({
-//     input: { text: message },
-//     workspace_id: process.env.WORKSPACE_ID,
-//     context: context
-//    }, function(err, response) {
-//        if (err) {
-//          console.error(err);
-//        } else {
-//          console.log(response.output.text[0]);
-//          if (context == null) {
-//            contexts.push({'from': number, 'context': response.context});
-//          } else {
-//            contexts[contextIndex].context = response.context;
-//          }
-
-//         var intent = response.intents[0].intent;
-//          console.log(intent);
-//          console.log("intent");
-//          if (intent == "done") {
-//            //contexts.splice(contexts.indexOf({'from': number, 'context': response.context}),1);
-//            contexts.splice(contextIndex,1);
-//            // Call REST API here (order pizza, etc.)
-//          }
-
-//         var client = require('twilio')(
-//            'ACa797f4d78e64abc0c8f760ad492b9291',
-//            'ee57133998b3ba6f19cb7ac6b5cb18b2'
-//          );
-
-//        //  client.messages.create({
-//         //    from: twilioNumber,
-//         //    to: number,
-//         //    body: response.output.text[0]
-//         //  }, function(err, message) {
-//         //    if(err) {
-//         //      console.error(err.message);
-//         //    }
-//         //  });
-//         client.messages.create({
-//           from: '+16313874080 ',
-//           to: '+12032589303',
-//           body: response.output.text[0]
-//         }, function(err, message) {
-//           if(err) {
-//             console.log("Twilio")
-//             console.error(err.message);
-//           }
-//         });
-
-//       }
-//   });
-
-//  res.send('');
-// });
-
-var express = require('express');
-var ConversationV1 = require('watson-developer-cloud/conversation/v1');
-var bodyParser = require('body-parser');
 // var client = require('twilio');
 
 var app = express();

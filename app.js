@@ -141,10 +141,10 @@ function translate (message) {
                     source: src,
                     target: tar
                 }, function (err, translation) {
-                    if (err)
+                    if (err) {
                         console.log(err)
                         reject(err);
-                    else {
+                    } else {
                         //Get translation out of json object
                         var tansStringfy = JSON.stringify(translation);
                         var transSplit = tansStringfy.split(",");

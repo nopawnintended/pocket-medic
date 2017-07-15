@@ -54,6 +54,7 @@ function translate (message) {
         throw new Error(err);
     }
     if (hasTarget) {
+        console.log("has target");
         var matchesSource = req.match(reg2);
         var src;
         try {
@@ -85,6 +86,7 @@ function translate (message) {
                         fromLanguage = fromLanguage + identifiedFinal;
                         console.log("text", fromLanguage);
                         console.log(req, identifiedFinal, tar);
+
                         language_translation.translate({
                             text: req,
                             source: identifiedFinal,

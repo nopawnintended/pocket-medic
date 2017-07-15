@@ -83,7 +83,7 @@ function translate (message) {
                         var identifiedDoubleSplit = identifiedSplit[0].split(":");
                         var identifiedFinal = identifiedDoubleSplit[2].slice(1, identifiedDoubleSplit[2].length - 1);
                         fromLanguage = fromLanguage + identifiedFinal;
-                        console.log(fromLanguage)
+                        console.log("text", fromLanguage);
                         language_translation.translate({
                             text: req,
                             source: identifiedFinal,

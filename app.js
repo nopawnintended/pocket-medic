@@ -68,7 +68,7 @@ function translate (message) {
             // Use Watson to Identify language
             console.log(3);
             var req = req.replace(reg1, "");
-            language_translation.identify({ text: req },
+            await language_translation.identify({ text: req },
                 function (err, identifiedLanguages) {
                     if (err) {
                         console.log(4);

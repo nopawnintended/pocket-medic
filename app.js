@@ -100,6 +100,14 @@ function translate(message, to='en') {
                             var identifiedDoubleSplit = identifiedSplit[0].split(":");
                             var identifiedFinal = identifiedDoubleSplit[2].slice(1, identifiedDoubleSplit[2].length - 1);
                             fromLanguage = fromLanguage + identifiedFinal;
+                            console.log("Identified final", identifiedFinal);
+                            
+                            if(identifiedFinal !== 'en' && identifiedFinal !== 'fr' && 
+                            identifiedFinal !== 'es' && identifiedFinal !== 'ara') {
+                                console.log("hit");
+                                identifiedFinal = 'en';
+                            }
+
                             console.log("error might be", fromLanguage, "correct ", identifiedFinal);
 
                             console.log('src is ', identifiedFinal, '***tar is ', tar);
@@ -232,7 +240,7 @@ app.post('/smssent', function (req, res) {
             var conversation = new ConversationV1({
                 username: process.env.CONVERSATION_USERNAME,
                 password: process.env.CONVERSATION_PASSWORD,
-                path: { workspace_id: '7e200353-7bd2-4ad6-9929-0c682211edad' },
+                path: { workspace_id: process.env.WORKSPACE_ID },
                 version_date: ConversationV1.VERSION_DATE_2016_09_20
             });
 

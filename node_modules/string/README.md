@@ -31,8 +31,15 @@ Why wasn't I happy with any of them? They are all static methods that don't seem
 Installation
 ------------
 
-    npm install --save string
+1. If you want to use this library, you first need to install the [Node.js] (https://nodejs.org/en/).
 
+2. When you install node.js, will also be installed [npm] (https://www.npmjs.com/).
+
+3. Please run the following command.
+
+```
+npm install --save string
+```
 
 
 Experiment with String.js Now
@@ -64,15 +71,15 @@ Checkout this gem to easily use string.js on the asset pipeline: https://github.
 
 ```html
 <!-- HTML5 -->
-<script src="https://cdn.rawgit.com/jprichardson/string.js/master/lib/string.min.js"></script>
+<script src="https://cdn.rawgit.com/jprichardson/string.js/master/dist/string.min.js"></script>
 
 <!-- Note that in the mime type for Javascript is now officially 'application/javascript'. If you
-set the type to application/javascript in IE browsers, your Javscript will fail. Just don't set a
+set the type to application/javascript in IE browsers, your Javacript will fail. Just don't set a
 type via the script tag and set the mime type from your server. Most browsers look at the server mime
 type anyway -->
 
 <!-- For HTML4/IE -->
-<script type="text/javascript" src="https://cdn.rawgit.com/jprichardson/string.js/master/lib/string.min.js"></script>
+<script type="text/javascript" src="https://cdn.rawgit.com/jprichardson/string.js/master/dist/string.min.js"></script>
 ```
 
 A global variable `window.S` or simply `S` is created.
@@ -110,7 +117,7 @@ S.restorePrototype(); //be a good citizen and clean up
 ```
 
 
-### Browser Compatiblity
+### Browser Compatibility
 
 `string.js` has been designed to be compatible with Node.js and with IE6+, Firefox 3+, Safari 2+, Chrome 3+. Please [click here][browsertest] to run the tests in your browser. Report any browser issues here: https://github.com/jprichardson/string.js/issues
 
@@ -703,7 +710,7 @@ Returns an array of strings, split from the left at `sep`. Performs at most `max
 Example:
 
 ```javascript
-S('This is all very fun').splitRight(' '); // ['THis', 'built', 'this', 'city'];
+S('This is all very fun').splitRight(' '); // ['This', 'is', 'all', 'very', 'fun'];
 S('and I could do it forever').splitRight(' ', 1); // ['and I could do it', 'forever'];
 S('but nothing matters in the end.').splitRight(' ', -1, 2); // ['the', 'end.'];
 S('but nothing matters in the end.').splitRight(' ', 4, -2); // ['but nothing', 'matters'];
@@ -880,7 +887,7 @@ You can either optionally pass in two string arguments or pass in a configuratio
 - `delimiter`: The character that is separates or delimits fields. Default: `,`
 - `qualifier`: The character that encloses fields. Default: `"`
 - `escape`: The character that escapes any incline `qualifier` characters. Default: `\`, in JS this is `\\`
-- `encloseNumbers`: Enclose number objects with the `qualifier` chracter. Default: `true`
+- `encloseNumbers`: Enclose number objects with the `qualifier` character. Default: `true`
 - `keys`: If the input isn't an array, but an object, then if this is set to true, the keys will be output to the CSV line, otherwise it's the object's values. Default: `false`.
 
 Example:
@@ -1136,7 +1143,7 @@ If you contribute to this library, just modify `string.js`, `string.test.js`, an
 Roadmap to v2.0
 ---------------
 - break up this module into smaller logically grouped modules. The Node.js version would probably always include most of the functions. https://github.com/jprichardson/string.js/issues/10
-- allow a more functional style similar to Underscore and lowdash. This may introduce a `chain` function though. https://github.com/jprichardson/string.js/issues/49
+- allow a more functional style similar to Underscore and Lodash. This may introduce a `chain` function though. https://github.com/jprichardson/string.js/issues/49
 - language specific plugins i.e. https://github.com/jprichardson/string.js/pull/46
 - move this repo over to https://github.com/stringjs
 
@@ -1147,7 +1154,7 @@ License
 
 Licensed under MIT.
 
-Copyright (C) 2012-2014 JP Richardson <jprichardson@gmail.com>
+Copyright (C) 2012-2016 JP Richardson <jprichardson@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 

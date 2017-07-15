@@ -68,59 +68,63 @@ function translate (message) {
             // Use Watson to Identify language
             console.log(3);
             var req = req.replace(reg1, "");
-            await language_translation.identify({ text: req },
-                function (err, identifiedLanguages) {
-                    if (err) {
-                        console.log(4);
-                        console.log(err);
-                    }
-                        
-                    else {
-                        console.log(5);
-                        var identifiedStringfy = JSON.stringify(identifiedLanguages);
-                        // console.log(identifiedStringfy);  // for debugging selected language                      
-                        var identifiedSplit = identifiedStringfy.split(",");
-                        var identifiedDoubleSplit = identifiedSplit[0].split(":");
-                        var identifiedFinal = identifiedDoubleSplit[2].slice(1, identifiedDoubleSplit[2].length - 1);
-                        fromLanguage = fromLanguage + identifiedFinal;
-                        console.log("text", fromLanguage);
-                        console.log(req, identifiedFinal, tar);
+            return new Promise(function(resolve, reject) {
+                language_translation.identify({ text: req },
+                    function (err, identifiedLanguages) {
+                        if (err) {
+                            console.log(4);
+                            console.log(err);
+                            reject(err);
+                        }
+                            
+                        else {
+                            console.log(5);
+                            var identifiedStringfy = JSON.stringify(identifiedLanguages);
+                            // console.log(identifiedStringfy);  // for debugging selected language                      
+                            var identifiedSplit = identifiedStringfy.split(",");
+                            var identifiedDoubleSplit = identifiedSplit[0].split(":");
+                            var identifiedFinal = identifiedDoubleSplit[2].slice(1, identifiedDoubleSplit[2].length - 1);
+                            fromLanguage = fromLanguage + identifiedFinal;
+                            console.log("text", fromLanguage);
+                            console.log(req, identifiedFinal, tar);
 
-                        language_translation.translate({
-                            text: req,
-                            source: identifiedFinal,
-                            target: tar
-                        }, function (err, translation) {
-                            console.log('F');
-                            console.log(err, translation);
-                            if (err) {
-                                console.log(6);
-                                console.log(err)
-                            }
-                                
-                            else {
-                                /* HERE IS WHERE WE WILL PUT THE MEDICAL API LOGIC */
-                                console.log(7);
-                                //Get translation out of json object
-                                var tansStringfy = JSON.stringify(translation);
-                                console.log(tansStringfy);
-                                var transSplit = tansStringfy.split(",");
-                                var transDoubleSplit = transSplit[0].split(":");
-                                var transFinal = transDoubleSplit[2].slice(1, transDoubleSplit[2].length - 3);
-                                console.log(transFinal)
-                                // prepare the TwiML response 
-                                // twiml.message(function () {
-                                //     this.body(transFinal);
-                                // });
-                                // // Render an XML response
-                                // response.type('text/xml');
-                                // response.send(twiml.toString());
-                                console.log('THIS IS TRANS FINAL1', transFinal)
-                                return transFinal;
-                            }
-                        });
-                    }
-                });
+                            language_translation.translate({
+                                text: req,
+                                source: identifiedFinal,
+                                target: tar
+                            }, function (err, translation) {
+                                console.log('F');
+                                console.log(err, translation);
+                                if (err) {
+                                    console.log(6);
+                                    console.log(err)
+                                    reject(err);
+                                }
+                                    
+                                else {
+                                    /* HERE IS WHERE WE WILL PUT THE MEDICAL API LOGIC */
+                                    console.log(7);
+                                    //Get translation out of json object
+                                    var tansStringfy = JSON.stringify(translation);
+                                    console.log(tansStringfy);
+                                    var transSplit = tansStringfy.split(",");
+                                    var transDoubleSplit = transSplit[0].split(":");
+                                    var transFinal = transDoubleSplit[2].slice(1, transDoubleSplit[2].length - 3);
+                                    console.log(transFinal)
+                                    // prepare the TwiML response 
+                                    // twiml.message(function () {
+                                    //     this.body(transFinal);
+                                    // });
+                                    // // Render an XML response
+                                    // response.type('text/xml');
+                                    // response.send(twiml.toString());
+                                    console.log('THIS IS TRANS FINAL1', transFinal)
+                                    resolve(transFinal);
+                                }
+                            });
+                        }
+                    });
+            });
         }
         if (hasSource) {
             // strip message  source inputs
@@ -131,30 +135,33 @@ function translate (message) {
             // var twiml = new twilio.TwimlResponse();
             // console.log("src: "+src+" tar: "+tar); //for debugging
             // Use Watson to translate language
-            language_translation.translate({
-                text: req,
-                source: src,
-                target: tar
-            }, function (err, translation) {
-                if (err)
-                    console.log(err)
-                else {
-                    //Get translation out of json object
-                    var tansStringfy = JSON.stringify(translation);
-                    var transSplit = tansStringfy.split(",");
-                    var transDoubleSplit = transSplit[0].split(":");
-                    var transFinal = transDoubleSplit[2].slice(1, transDoubleSplit[2].length - 3);
-                    // prepare the TwiML response 
-                    // console.log("final:"+transFinal); // for debugging
-                    // twiml.message(function () {
-                    //     this.body(transFinal);
-                    // });
-                    // // Render an XML response
-                    // response.type('text/xml');
-                    // response.send(twiml.toString());
-                    console.log('THIS IS TRANS FINAL2', transFinal);
-                    return transFinal;
-                }
+            return new Promise(function(resolve, reject) {
+                language_translation.translate({
+                    text: req,
+                    source: src,
+                    target: tar
+                }, function (err, translation) {
+                    if (err)
+                        console.log(err)
+                        reject(err);
+                    else {
+                        //Get translation out of json object
+                        var tansStringfy = JSON.stringify(translation);
+                        var transSplit = tansStringfy.split(",");
+                        var transDoubleSplit = transSplit[0].split(":");
+                        var transFinal = transDoubleSplit[2].slice(1, transDoubleSplit[2].length - 3);
+                        // prepare the TwiML response 
+                        // console.log("final:"+transFinal); // for debugging
+                        // twiml.message(function () {
+                        //     this.body(transFinal);
+                        // });
+                        // // Render an XML response
+                        // response.type('text/xml');
+                        // response.send(twiml.toString());
+                        console.log('THIS IS TRANS FINAL2', transFinal);
+                        resolve(transFinal);
+                    }
+                });
             });
         }
     }
@@ -170,91 +177,94 @@ var contexts = [];
 
 app.post('/smssent', function (req, res) {
 
-console.log("We're in the post!")
-console.log("THIS IS REQ BODY", req.body.Body)
- var message = translate(req.body.Body);
-  var number = req.body.From;
-  var twilioNumber = req.body.To;
+    console.log("We're in the post!")
+    console.log("THIS IS REQ BODY", req.body.Body)
+    translate(req.body.Body)
+    .then(function(message) {
+        var number = req.body.From;
+        var twilioNumber = req.body.To;
+        console.log('In', message, number, twilioNumber);
 
- console.log('In', message, number, twilioNumber);
-
- var context = null;
-  var index = 0;
-  var contextIndex = 0;
-  contexts.forEach(function(value) {
-    console.log(value.from);
-    if (value.from == number) {
-      context = value.context;
-      contextIndex = index;
-    }
-    index = index + 1;
-  });
-
- console.log('Recieved message from ' + number + ' saying \'' + message  + '\'');
-  console.log(process.env.CONVERSATION_USERNAME, process.env.CONVERSATION_PASSWORD);
-
- var conversation = new ConversationV1({
-    username: process.env.CONVERSATION_USERNAME,
-    password: process.env.CONVERSATION_PASSWORD,
-    path: { workspace_id: '7e200353-7bd2-4ad6-9929-0c682211edad' },
-    version_date: ConversationV1.VERSION_DATE_2016_09_20
-  });
-
- console.log(JSON.stringify(context));
-  console.log(contexts.length);
-  conversation.message({
-    input: { text: message },
-    workspace_id: process.env.WORKSPACE_ID,
-    context: context
-   }, function(err, response) {
-       if (err) {
-         console.error(err);
-       } else {
-         console.log(response.output.text[0]);
-         if (context == null) {
-           contexts.push({'from': number, 'context': response.context});
-         } else {
-           contexts[contextIndex].context = response.context;
-         }
-
-        var intent = response.intents[0].intent;
-         console.log(intent);
-         console.log("intent");
-         if (intent == "done") {
-           //contexts.splice(contexts.indexOf({'from': number, 'context': response.context}),1);
-           contexts.splice(contextIndex,1);
-           // Call REST API here (order pizza, etc.)
-         }
-
-        var client = require('twilio')(
-           'ACa797f4d78e64abc0c8f760ad492b9291',
-           'ee57133998b3ba6f19cb7ac6b5cb18b2'
-         );
-
-       //  client.messages.create({
-        //    from: twilioNumber,
-        //    to: number,
-        //    body: response.output.text[0]
-        //  }, function(err, message) {
-        //    if(err) {
-        //      console.error(err.message);
-        //    }
-        //  });
-        client.messages.create({
-          from: '+16313874080',
-          to: '+12032589303',
-          body: response.output.text[0]
-        }, function(err, message) {
-          if(err) {
-            console.log("Twilio")
-            console.error(err.message);
-          }
+        var context = null;
+        var index = 0;
+        var contextIndex = 0;
+        contexts.forEach(function(value) {
+            console.log(value.from);
+            if (value.from == number) {
+                context = value.context;
+                contextIndex = index;
+            }
+            index = index + 1;
         });
 
-      }
-  });
+        console.log('Recieved message from ' + number + ' saying \'' + message  + '\'');
+        console.log(process.env.CONVERSATION_USERNAME, process.env.CONVERSATION_PASSWORD);
 
- res.send('');
+        var conversation = new ConversationV1({
+            username: process.env.CONVERSATION_USERNAME,
+            password: process.env.CONVERSATION_PASSWORD,
+            path: { workspace_id: '7e200353-7bd2-4ad6-9929-0c682211edad' },
+            version_date: ConversationV1.VERSION_DATE_2016_09_20
+        });
+
+        console.log(JSON.stringify(context));
+        console.log(contexts.length);
+        conversation.message({
+            input: { text: message },
+            workspace_id: process.env.WORKSPACE_ID,
+            context: context
+        }, function(err, response) {
+            if (err) {
+                console.error(err);
+            } else {
+                console.log(response.output.text[0]);
+                if (context == null) {
+                    contexts.push({'from': number, 'context': response.context});
+                } else {
+                    contexts[contextIndex].context = response.context;
+                }
+
+                var intent = response.intents[0].intent;
+                console.log(intent);
+                console.log("intent");
+                if (intent == "done") {
+                    //contexts.splice(contexts.indexOf({'from': number, 'context': response.context}),1);
+                    contexts.splice(contextIndex,1);
+                    // Call REST API here (order pizza, etc.)
+                }
+
+                var client = require('twilio')(
+                    'ACa797f4d78e64abc0c8f760ad492b9291',
+                    'ee57133998b3ba6f19cb7ac6b5cb18b2'
+                );
+
+                //  client.messages.create({
+                //    from: twilioNumber,
+                //    to: number,
+                //    body: response.output.text[0]
+                //  }, function(err, message) {
+                //    if(err) {
+                //      console.error(err.message);
+                //    }
+                //  });
+                client.messages.create({
+                    from: '+16313874080',
+                    to: '+12032589303',
+                    body: response.output.text[0]
+                }, function(err, message) {
+                    if(err) {
+                        console.log("Twilio")
+                        console.error(err.message);
+                    }
+                });
+            }
+        });
+
+        res.send('');
+    })
+    .catch(function(err) {
+        console.log('promise failed', err);
+    })
 });
 
 app.listen(process.env.PORT || 3000, function () {
